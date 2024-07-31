@@ -36,8 +36,8 @@ int main() {
     arr.emplace_back(2);
     arr.emplace_back(3);    
     qs(arr, 0, arr.size()-1);
-    for(int i =0; i<arr.size(); i++) {
-        cout<<arr[i]<<" ";
+    for(auto i:arr) {
+        cout<<i<<" ";
     }
     
     return 0;
