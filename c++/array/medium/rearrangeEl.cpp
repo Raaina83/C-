@@ -3,66 +3,50 @@
 using namespace std;
 //LEETCODE
 
-vector<int> rearrangeArray(vector<int>& nums) {
-        int i = 0;
-        int j = 0;
-        bool bit = 0;
-        vector<int> ans;
-        while(i < nums.size() || j < nums.size()) {
-            if(bit == 0 ) {
-                if(i < nums.size() && nums[i] > 0) {
-                    ans.emplace_back(nums[i]);
-                    bit = 1 - bit;
-                }
-                cout<<i<<' ';
-                i++;
-            }
-            else {
-                if(j < nums.size() && nums[j] < 0) {
-                    ans.emplace_back(nums[j]);
-                    bit = 1 - bit;
-                }
-                cout<<j<<" ";
-                j++;
-            }
-        }
-        cout<<"bjkdgeu";
-        return ans;
+vector<int> reaArrange(vector<int>&nums) {
+    int n = nums.size();
+    vector<int> pos;
+    vector<int> neg;
+    vector<int> ans(n);
+
+    for(int i = 0; i < n; i++) {
+        if(nums[i] > 0) pos.emplace_back(nums[i]);
+        else neg.emplace_back(nums[i]);
     }
 
+    if(pos.size() > neg.size()) {
+        for(int i = 0; i < neg.size(); i++) {
+            ans[2 * i] = pos[i];
+            ans[2 * i + 1] = neg[i];
+        }
+
+        int idx = neg.size() * 2;
+        for(int i = neg.size(); i < pos.size(); i++) {
+            ans[idx] = pos[i];
+            idx++;
+        }
+    }
+
+    else {
+        for(int i = 0; i < pos.size(); i++) {
+            ans[2 * i] = pos[i];
+            ans[2 * i + 1] = neg[i];
+        }
+
+        int idx = pos.size() * 2;
+        for(int i = pos.size(); i < neg.size(); i++) {
+            ans[idx] = neg[i];
+            idx++;
+        }
+    }
+    return ans;
+}
+
 int main() {
-    vector<int> v = {-1, 1};
-    // for(auto it:v) {
-    //     cout<<it<<" ";
-    // }
-    vector<int> ans = rearrangeArray(v);
+    vector<int> inp = {2,3,-4,-1,5,3,4,-8, -6, -2,-4};
+    vector<int> ans = reaArrange(inp);
     for(auto it:ans) {
         cout<<it<<" ";
     }
+    return 0;
 }
-
-// vector<int> rearrangeArray(vector<int>& nums) {
-//         int i = 0;
-//         int j = 0;
-//         bool bit = 0;
-//         vector<int> ans;
-//         while(i < nums.size() || j < nums.size()) {
-//             if(i <nums.size() && bit == 0 ) {
-//                 if( nums[i] > 0) {
-//                     ans.emplace_back(nums[i]);
-//                     bit = 1 - bit;
-//                 }
-//                 if(i == nums.size() - 1) continue; 
-//                 i++;
-//             }
-//             if(bit == 1 && j < nums.size()) {
-//                 if(nums[j] < 0) {
-//                     ans.emplace_back(nums[j]);
-//                     bit = 1 - bit;
-//                 }
-//                 if(j == nums.size() - 1) continue; 
-//                 j++;
-//             }
-//         }
-//         return ans;
-//     }
